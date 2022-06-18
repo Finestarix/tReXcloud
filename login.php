@@ -1,8 +1,6 @@
 <?php
 $title = "Login Page";
 require_once("components/header.php");
-
-session_start();
 ?>
 
 <body>

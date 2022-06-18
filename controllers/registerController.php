@@ -1,9 +1,9 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/core/userController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/models/User.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/utils/file.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/utils/validator.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/controllers/core/userController.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/models/User.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/file.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/validator.php");
 
 session_start();
 
@@ -65,6 +65,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["register"]))) {
     } else {
         $user = new User($firstName, $lastName, $username, $password, $phoneNumber, $birthdateDay, $birthdateMonth, $birthdateYear, $gender);
         insertUser($user);
+        createRootFolder($user->id);
         header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/login.php");
         die("Oops. Something when wrong.");
     }

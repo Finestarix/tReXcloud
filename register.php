@@ -1,8 +1,6 @@
 <?php
 $title = "Register Page";
 require_once("components/header.php");
-
-session_start();
 ?>
 
 <body>
@@ -55,7 +53,7 @@ session_start();
                             <input id="username" name="username" type="text"
                                    class="appearance-none px-3 py-2 w-full border border-gray-300 rounded-l-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
                             <span class="inline-flex items-center px-3 rounded-r-md border border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-                                @rexcloud.com
+                                @trexcloud.com
                             </span>
                         </div>
                     </div>

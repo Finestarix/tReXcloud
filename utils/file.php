@@ -1,6 +1,8 @@
 <?php
 
-$FOLDER_PATH = $_SERVER['DOCUMENT_ROOT'] . "/database/";
+$FOLDER_PATH = $_SERVER["DOCUMENT_ROOT"] . "/database/";
+$CLOUD_PATH = $_SERVER["DOCUMENT_ROOT"] . "/cloud/";
+$SHARED_PART = $CLOUD_PATH . "/SHARED/";
 
 function readFileJSON($fileName)
 {
@@ -30,4 +32,16 @@ function writeFileData($fileName, $data)
     $file = fopen($fullPath, "w+");
     fwrite($file, json_encode($data, JSON_PRETTY_PRINT));
     fclose($file);
+}
+
+function createRootFolder($folderName)
+{
+    global $CLOUD_PATH, $SHARED_PART;
+
+    if (!file_exists($SHARED_PART)) {
+        mkdir($SHARED_PART);
+    }
+
+    mkdir($CLOUD_PATH . $folderName);
+    mkdir($SHARED_PART . $folderName);
 }
