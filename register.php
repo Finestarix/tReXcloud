@@ -1,6 +1,11 @@
 <?php
 $title = "Register Page";
 require_once("components/header.php");
+
+if (isset($_SESSION["USER"])) {
+    header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/cloud.php");
+    die("Oops. Something when wrong.");
+}
 ?>
 
 <body>
@@ -15,7 +20,7 @@ require_once("components/header.php");
                 </h2>
                 <p class="mt-2 text-sm text-gray-600">
                     or
-                    <a href="login.php" class="font-medium text-green-600 hover:text-green-500">
+                    <a href="/login.php" class="font-medium text-green-600 hover:text-green-500">
                         sign in to your account
                     </a>
                 </p>

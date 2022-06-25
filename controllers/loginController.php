@@ -22,7 +22,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["login"]))) {
             $_SESSION["ERROR"] = "Wrong username and password.";
         } else {
             $_SESSION["USER"] = $user;
-            header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/home.php");
+            header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/cloud.php");
             die("Oops. Something when wrong.");
         }
     }
