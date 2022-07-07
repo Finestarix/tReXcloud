@@ -22,11 +22,11 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["register"]))) {
 
     if (checkLength($firstName)) {
         $_SESSION["ERROR"] = "First name must not be empty.";
-    } else if (checkAlphabeth($firstName)) {
+    } else if (checkAlphabet($firstName)) {
         $_SESSION["ERROR"] = "First name must only consist of letters (without numbers and punctuations).";
     } else if (checkLength($lastName)) {
         $_SESSION["ERROR"] = "Last name must not be empty.";
-    } else if (checkAlphabeth($lastName)) {
+    } else if (checkAlphabet($lastName)) {
         $_SESSION["ERROR"] = "Last name must only consist of letters (without numbers and punctuations).";
     } else if (checkLength($username, 5, 20)) {
         $_SESSION["ERROR"] = "Username length must be between 5 and 20 inclusively.";
@@ -65,7 +65,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["register"]))) {
     } else {
         $user = new User($firstName, $lastName, $username, $password, $phoneNumber, $birthdateDay, $birthdateMonth, $birthdateYear, $gender);
         insertUser($user);
-        createRootFolder($user->id);
+        createFolder("", $user->id);
         header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/login.php");
         die("Oops. Something when wrong.");
     }

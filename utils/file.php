@@ -2,9 +2,8 @@
 
 $FOLDER_PATH = $_SERVER["DOCUMENT_ROOT"] . "/database/";
 $CLOUD_PATH = $_SERVER["DOCUMENT_ROOT"] . "/cloud/";
-$SHARED_PART = $CLOUD_PATH . "/SHARED/";
 
-function readFileJSON($fileName)
+function readFileJSON($fileName): string
 {
     global $FOLDER_PATH;
     $fullPath = $FOLDER_PATH . $fileName . ".json";
@@ -24,7 +23,7 @@ function readFileJSON($fileName)
     return json_decode($data);
 }
 
-function writeFileData($fileName, $data)
+function writeFileData($fileName, $data): void
 {
     global $FOLDER_PATH;
     $fullPath = $FOLDER_PATH . $fileName . ".json";
@@ -34,14 +33,41 @@ function writeFileData($fileName, $data)
     fclose($file);
 }
 
-function createRootFolder($folderName)
+function createFolder($path, $folderName): void
 {
-    global $CLOUD_PATH, $SHARED_PART;
+    global $CLOUD_PATH;
+    $fullPath = $CLOUD_PATH . $path . $folderName;
 
-    if (!file_exists($SHARED_PART)) {
-        mkdir($SHARED_PART);
+    mkdir($fullPath);
+}
+
+function generateDummyFolders($id, $path, $total): void
+{
+    global $CLOUD_PATH;
+    $fullPath = $CLOUD_PATH . $id . $path;
+
+    for ($i = 0; $i < $total; $i++) {
+        $random = substr(sha1(rand()), 0, 16);
+        mkdir($fullPath . $random);
+    }
+}
+
+function getFoldersFiles($id, $path): array
+{
+    global $CLOUD_PATH;
+    $fullPath = $CLOUD_PATH . $id . $path;
+
+    $directories = [];
+    $files = [];
+    $listDirectoriesFiles = scandir($fullPath);
+    $listDirectoriesFiles = array_diff($listDirectoriesFiles, array(".", ".."));
+    foreach ($listDirectoriesFiles as $directoriesFile) {
+        if (is_dir($fullPath . $directoriesFile)) {
+            $directories[] = $directoriesFile;
+        } else if (is_file($fullPath . $directoriesFile)) {
+            $files[] = $directoriesFile;
+        }
     }
 
-    mkdir($CLOUD_PATH . $folderName);
-    mkdir($SHARED_PART . $folderName);
+    return [$directories, $files];
 }

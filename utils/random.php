@@ -1,6 +1,6 @@
 <?php
 
-function generateID($length = 13)
+function generateRandomString($length = 13): ?string
 {
     try {
         if (function_exists("random_bytes")) {
@@ -10,7 +10,7 @@ function generateID($length = 13)
         } else {
             $id = uniqid();
         }
-    } catch (Exception $e) {
+    } catch (Exception) {
         $id = null;
     }
 

@@ -4,13 +4,13 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/random.php");
 
 class User
 {
-    public $id;
-    public $name;
-    public $username;
-    public $password;
-    public $phone;
-    public $birthdate;
-    public $gender;
+    public string $id;
+    public string $name;
+    public string $username;
+    public string $password;
+    public string $phone;
+    public string $birthdate;
+    public string $gender;
 
     public function __construct($firstName, $lastName, $username, $password, $phoneNumber, $birthdateday, $birthdatemonth, $birthdateyear, $gender)
     {
@@ -19,7 +19,7 @@ class User
             $phoneNumber = substr($phoneNumber, 1);
         }
 
-        $this->id = strval(generateID());
+        $this->id = strval(generateRandomString());
         $this->name = ucfirst($firstName) . " " . ucfirst($lastName);
         $this->username = $username;
         $this->password = password_hash($password, PASSWORD_DEFAULT);
