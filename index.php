@@ -283,9 +283,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairTheCaesar&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=CollarSweater&clotheColor=Gray01&eyeType=Close&eyebrowType=Angry&mouthType=Serious&skinColor=Light"
                                  alt="FL21-2">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Felix G. (FL21-2)</h3>
-                                <p class="text-green-600">Co-Founder / CEO</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Felix G.</h3>
+                                    <h3>(FL21-2)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">Co-Founder / CEO</p>
                             </div>
                         </div>
                     </li>
@@ -294,9 +297,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairDreads01&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Wink&eyebrowType=RaisedExcited&mouthType=Smile&skinColor=Light"
                                  alt="RX19-2">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Renaldy (RX19-2)</h3>
-                                <p class="text-green-600">Co-Founder / COO</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Renaldy</h3>
+                                    <h3>(RX19-2)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">Co-Founder / COO</p>
                             </div>
                         </div>
                     </li>
@@ -305,9 +311,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairTheCaesarSidePart&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=CollarSweater&clotheColor=Black&eyeType=Default&eyebrowType=Default&mouthType=Tongue&skinColor=Light"
                                  alt="HE21-1">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Hansen A. (HE21-1)</h3>
-                                <p class="text-green-600">Co-Founder / CTO</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Hansen A.</h3>
+                                    <h3>(HE21-1)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">Co-Founder / CTO</p>
                             </div>
                         </div>
                     </li>
@@ -316,9 +325,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight2&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=GraphicShirt&clotheColor=Pink&graphicType=Bear&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Twinkle&skinColor=Light"
                                  alt="LA21-1">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Julieta (LA21-1)</h3>
-                                <p class="text-green-600">Co-Founder / CFO</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Julieta</h3>
+                                    <h3>(LA21-1)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">Co-Founder / CFO</p>
                             </div>
                         </div>
                     </li>
@@ -327,9 +339,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=MoustacheMagnum&facialHairColor=Black&clotheType=ShirtVNeck&clotheColor=Gray01&eyeType=Happy&eyebrowType=RaisedExcited&mouthType=Grimace&skinColor=Light"
                                  alt="EN21-1">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Erwin (EN21-1)</h3>
-                                <p class="text-green-600">Co-Founder / CMO</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Erwin</h3>
+                                    <h3>(EN21-1)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">Co-Founder / CMO</p>
                             </div>
                         </div>
                     </li>
@@ -338,9 +353,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShaggyMullet&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Gray01&eyeType=Default&eyebrowType=RaisedExcited&mouthType=Smile&skinColor=Light"
                                  alt="JG21-1">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Jose G. (JG21-1)</h3>
-                                <p class="text-green-600">VP, Penetration Tester</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Jose G.</h3>
+                                    <h3>(JG21-1)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">VP, Penetration Tester</p>
                             </div>
                         </div>
                     </li>
@@ -349,9 +367,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortFlat&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=CollarSweater&clotheColor=Black&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Twinkle&skinColor=Light"
                                  alt="LT20-1">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Lukas T. K. (LT20-1)</h3>
-                                <p class="text-green-600">VP, Designer</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Lukas T. K.</h3>
+                                    <h3>(LT20-1)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">VP, Designer</p>
                             </div>
                         </div>
                     </li>
@@ -360,9 +381,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortRound&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=BlazerSweater&eyeType=Squint&eyebrowType=Default&mouthType=Eating&skinColor=Light"
                                  alt="CA21-2">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Cristoper A. (CA21-2)</h3>
-                                <p class="text-green-600">VP, User Experience</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Cristoper A.</h3>
+                                    <h3>(CA21-2)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">VP, User Experience</p>
                             </div>
                         </div>
                     </li>
@@ -371,9 +395,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortFlat&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Black&eyeType=Wink&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light"
                                  alt="AD21-1">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Andre S. W. (AD21-1)</h3>
-                                <p class="text-green-600">VP, Front-End Developer</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Andre S. W.</h3>
+                                    <h3>(AD21-1)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">VP, Front-End Developer</p>
                             </div>
                         </div>
                     </li>
@@ -382,9 +409,12 @@ require_once("components/header.php");
                             <img class="w-20 h-20 rounded-full lg:w-24 lg:h-24"
                                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortRound&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=ShirtCrewNeck&clotheColor=Gray02&eyeType=Default&eyebrowType=FlatNatural&mouthType=Disbelief&skinColor=Light"
                                  alt="FX21-1">
-                            <div class="font-medium text-lg leading-6 space-y-1">
-                                <h3>Felix N. (FX21-1)</h3>
-                                <p class="text-green-600">VP, Back-End Developer</p>
+                            <div class="font-medium text-md sm:text-lg leading-6 space-y-1">
+                                <div class="flex flex-col sm:flex-row sm:space-x-1">
+                                    <h3>Felix N.</h3>
+                                    <h3>(FX21-1)</h3>
+                                </div>
+                                <p class="text-green-600 text-sm sm:text-lg">VP, Back-End Developer</p>
                             </div>
                         </div>
                     </li>

@@ -3,7 +3,7 @@
 $FOLDER_PATH = $_SERVER["DOCUMENT_ROOT"] . "/database/";
 $CLOUD_PATH = $_SERVER["DOCUMENT_ROOT"] . "/cloud/";
 
-function readFileJSON($fileName): string
+function readFileJSON($fileName): array
 {
     global $FOLDER_PATH;
     $fullPath = $FOLDER_PATH . $fileName . ".json";
@@ -47,8 +47,20 @@ function generateDummyFolders($id, $path, $total): void
     $fullPath = $CLOUD_PATH . $id . $path;
 
     for ($i = 0; $i < $total; $i++) {
-        $random = substr(sha1(rand()), 0, 16);
-        mkdir($fullPath . $random);
+        $folderName = substr(sha1(rand()), 0, 16);
+        mkdir($fullPath . $folderName);
+    }
+}
+
+function generateDummyFiles($id, $path, $total): void
+{
+    global $CLOUD_PATH;
+    $fullPath = $CLOUD_PATH . $id . $path;
+    $allowedExtension = ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "gif", "jpg", "png", "pdf", "txt", "zip"];
+
+    for ($i = 0; $i < $total; $i++) {
+        $fileName = substr(sha1(rand()), 0, 5) . "." . $allowedExtension[array_rand($allowedExtension)];
+        fopen($fullPath . $fileName, "w");
     }
 }
 
