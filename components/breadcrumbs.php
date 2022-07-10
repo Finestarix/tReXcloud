@@ -50,7 +50,7 @@ $totalPath = count($splitPath);
                                 </svg>
                                 New Folder
                             </button>
-                            <form action="controllers/dummyController.php" method="POST">
+                            <form action="controllers/fileController.php" method="POST">
                                 <input id="id" name="id" type="hidden" value="<?= $id ?>">
                                 <input id="path" name="path" type="hidden" value="<?= $path ?>">
                                 <button id="dummyFolder" name="dummyFolder" type="submit"
@@ -63,7 +63,7 @@ $totalPath = count($splitPath);
                                     Create Dummy Folder
                                 </button>
                             </form>
-                            <form action="controllers/dummyController.php" method="POST">
+                            <form action="controllers/fileController.php" method="POST">
                                 <input id="id" name="id" type="hidden" value="<?= $id ?>">
                                 <input id="path" name="path" type="hidden" value="<?= $path ?>">
                                 <button id="dummyFile" name="dummyFile" type="submit"
@@ -176,7 +176,7 @@ $totalPath = count($splitPath);
                                     </svg>
                                     New Folder
                                 </button>
-                                <form action="controllers/dummyController.php" method="POST">
+                                <form action="controllers/fileController.php" method="POST">
                                     <input id="id" name="id" type="hidden" value="<?= $id ?>">
                                     <input id="path" name="path" type="hidden" value="<?= $path ?>">
                                     <button id="dummyFolder" name="dummyFolder" type="submit"
@@ -189,7 +189,7 @@ $totalPath = count($splitPath);
                                         Create Dummy Folder
                                     </button>
                                 </form>
-                                <form action="controllers/dummyController.php" method="POST">
+                                <form action="controllers/fileController.php" method="POST">
                                     <input id="id" name="id" type="hidden" value="<?= $id ?>">
                                     <input id="path" name="path" type="hidden" value="<?= $path ?>">
                                     <button id="dummyFile" name="dummyFile" type="submit"
@@ -230,14 +230,20 @@ $totalPath = count($splitPath);
                                 </button>
                             </div>
                             <div class="py-1">
-                                <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 hover:text-red-600 w-full group flex items-center px-4 py-2 text-sm">
-                                    <svg class="mr-3 h-6 w-6 text-opacity-60"
-                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm4 6a1 1 0 100 2h4a1 1 0 100-2H8z"/>
-                                    </svg>
-                                    Delete Folder
-                                </button>
+                                <form action="controllers/fileController.php" method="POST">
+                                    <input id="id" name="id" type="hidden" value="<?= $id ?>">
+                                    <input id="path" name="path" type="hidden" value="<?= $path ?>">
+                                    <input id="type" name="type" type="hidden" value="parent">
+                                    <button id="deleteFolder" name="deleteFolder" type="submit"
+                                            class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 hover:text-red-600 w-full group flex items-center px-4 py-2 text-sm">
+                                        <svg class="mr-3 h-6 w-6 text-opacity-60"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm4 6a1 1 0 100 2h4a1 1 0 100-2H8z"/>
+                                        </svg>
+                                        Delete Folder
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

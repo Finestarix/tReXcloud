@@ -13,6 +13,9 @@ $id = $_SESSION["USER"]->id;
 $path = "/";
 if (isset($_GET["path"])) {
     $path = $_GET["path"];
+    if (!str_ends_with($path, "/")) {
+        $path .= "/";
+    }
 }
 
 [$directories, $files] = getFoldersFiles($id, $path);
@@ -111,13 +114,19 @@ if (isset($_GET["path"])) {
                                                     </button>
                                                 </div>
                                                 <div>
-                                                    <button class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-red-600 w-full group flex items-center px-2 py-2 text-sm">
-                                                        <svg class="h-6 w-6 opacity-70"
-                                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                  d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm4 6a1 1 0 100 2h4a1 1 0 100-2H8z"/>
-                                                        </svg>
-                                                    </button>
+                                                    <form action="controllers/fileController.php" method="POST">
+                                                        <input id="id" name="id" type="hidden" value="<?= $id ?>">
+                                                        <input id="path" name="path" type="hidden" value="<?= $path . $directory ?>">
+                                                        <input id="type" name="type" type="hidden" value="child">
+                                                        <button id="deleteFolder" name="deleteFolder" type="submit"
+                                                                class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-red-600 w-full group flex items-center px-2 py-2 text-sm">
+                                                            <svg class="h-6 w-6 opacity-70"
+                                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                      d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm4 6a1 1 0 100 2h4a1 1 0 100-2H8z"/>
+                                                            </svg>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,13 +198,18 @@ if (isset($_GET["path"])) {
                                                     </button>
                                                 </div>
                                                 <div>
-                                                    <button class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-red-600 w-full group flex items-center px-2 py-2 text-sm">
-                                                        <svg class="h-6 w-6 opacity-70"
-                                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                  d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm1 8a1 1 0 100 2h6a1 1 0 100-2H7z"/>
-                                                        </svg>
-                                                    </button>
+                                                    <form action="controllers/fileController.php" method="POST">
+                                                        <input id="id" name="id" type="hidden" value="<?= $id ?>">
+                                                        <input id="path" name="path" type="hidden" value="<?= $path . $file ?>">
+                                                        <button id="deleteFile" name="deleteFile" type="submit"
+                                                                class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-red-600 w-full group flex items-center px-2 py-2 text-sm">
+                                                            <svg class="h-6 w-6 opacity-70"
+                                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                      d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm1 8a1 1 0 100 2h6a1 1 0 100-2H7z"/>
+                                                            </svg>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

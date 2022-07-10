@@ -83,3 +83,27 @@ function getFoldersFiles($id, $path): array
 
     return [$directories, $files];
 }
+
+function deleteFoldersFiles($id, $path): bool
+{
+    global $CLOUD_PATH;
+    $fullPath = $CLOUD_PATH . $id . $path;
+
+    var_dump($path);
+    if (file_exists($fullPath)) {
+        if (!is_dir($fullPath)) {
+            return unlink($fullPath);
+        } else {
+            $listDirectoriesFiles = scandir($fullPath);
+            $listDirectoriesFiles = array_diff($listDirectoriesFiles, array(".", ".."));
+            foreach ($listDirectoriesFiles as $directoriesFile) {
+                if (!deleteFoldersFiles($id, $path . "/" . $directoriesFile)) {
+                    return false;
+                }
+            }
+            return rmdir($fullPath);
+        }
+    } else {
+        return true;
+    }
+}
