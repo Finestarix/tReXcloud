@@ -43,6 +43,22 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");
 
+} else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["downloadFolder"]))) {
+    $id = $_POST["id"];
+    $path = $_POST["path"];
+    $pathSplit = explode("/", $path);
+    $directory = $pathSplit[count($pathSplit) - 2];
+    downloadFolder($id, $path, $directory);
+
+    die("Oops. Something when wrong.");
+
+} else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["downloadFile"]))) {
+    $id = $_POST["id"];
+    $path = $_POST["path"];
+    downloadFile($id, $path);
+
+    die("Oops. Something when wrong.");
+
 }
 
 header("Location: " . $_SERVER["HTTP_REFERER"]);

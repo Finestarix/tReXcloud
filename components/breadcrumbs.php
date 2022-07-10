@@ -211,14 +211,19 @@ $totalPath = count($splitPath);
                                     </svg>
                                     Rename Folder
                                 </button>
-                                <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
-                                    <svg class="mr-3 h-6 w-6 text-opacity-60"
-                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1.586l-.293-.293a1 1 0 10-1.414 1.414l2 2 .002.002a.997.997 0 001.41 0l.002-.002 2-2a1 1 0 00-1.414-1.414l-.293.293V9z"/>
-                                    </svg>
-                                    Download Folder
-                                </button>
+                                <form action="controllers/fileController.php" method="POST">
+                                    <input id="id" name="id" type="hidden" value="<?= $id ?>">
+                                    <input id="path" name="path" type="hidden" value="<?= $path ?>">
+                                    <button id="downloadFolder" name="downloadFolder" type="submit"
+                                            class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
+                                        <svg class="mr-3 h-6 w-6 text-opacity-60"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1.586l-.293-.293a1 1 0 10-1.414 1.414l2 2 .002.002a.997.997 0 001.41 0l.002-.002 2-2a1 1 0 00-1.414-1.414l-.293.293V9z"/>
+                                        </svg>
+                                        Download Folder
+                                    </button>
+                                </form>
                             </div>
                             <div class="py-1">
                                 <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
