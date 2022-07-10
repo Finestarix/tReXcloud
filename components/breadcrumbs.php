@@ -26,7 +26,8 @@ $totalPath = count($splitPath);
                     <div>
                         <button type="button"
                                 class="flex items-center justify-center w-full rounded-md text-sm font-bold text-sm text-gray-600 text-opacity-50 hover:text-opacity-70"
-                                @click="isCloudShowOption = !isCloudShowOption">
+                                @click="isCloudShowOption = !isCloudShowOption"
+                                @click.away="isCloudShowOption = false">
                             <svg class="h-6 w-6"
                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z"/>
@@ -97,7 +98,8 @@ $totalPath = count($splitPath);
                         <div>
                             <button type="button"
                                     class="flex items-center justify-center w-full rounded-md text-sm font-bold text-sm text-gray-600 text-opacity-50 hover:text-opacity-70"
-                                    @click="isShowMenu = !isShowMenu">
+                                    @click="isShowMenu = !isShowMenu"
+                                    @click.away="isShowMenu = false">
                                 ...
                             </button>
                         </div>
@@ -153,7 +155,8 @@ $totalPath = count($splitPath);
                         <div>
                             <button type="button"
                                     class="flex items-center justify-center w-full rounded-md text-sm font-bold text-sm text-gray-600 text-opacity-50 hover:text-opacity-70"
-                                    @click="isShowOption = !isShowOption">
+                                    @click="isShowOption = !isShowOption"
+                                    @click.away="isShowOption = false">
                                 <?= (strlen($splitPath[count($splitPath) - 1]) > 10 ? substr($splitPath[count($splitPath) - 1], 0, 10) . "..." : $splitPath[count($splitPath) - 1]) ?>
                                 <svg class="-mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
                                      viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -186,6 +189,19 @@ $totalPath = count($splitPath);
                                         Create Dummy Folder
                                     </button>
                                 </form>
+                                <form action="controllers/dummyController.php" method="POST">
+                                    <input id="id" name="id" type="hidden" value="<?= $id ?>">
+                                    <input id="path" name="path" type="hidden" value="<?= $path ?>">
+                                    <button id="dummyFile" name="dummyFile" type="submit"
+                                            class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
+                                        <svg class="mr-3 h-6 w-6 text-opacity-60"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z"/>
+                                        </svg>
+                                        Create Dummy File
+                                    </button>
+                                </form>
                                 <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
                                     <svg class="mr-3 h-6 w-6 text-opacity-60"
                                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -204,7 +220,7 @@ $totalPath = count($splitPath);
                                     Download Folder
                                 </button>
                             </div>
-                            <div class="py-1" role="none">
+                            <div class="py-1">
                                 <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
                                     <svg class="mr-3 h-6 w-6 text-opacity-60"
                                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -213,8 +229,8 @@ $totalPath = count($splitPath);
                                     Share Folder
                                 </button>
                             </div>
-                            <div class="py-1" role="none">
-                                <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
+                            <div class="py-1">
+                                <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 hover:text-red-600 w-full group flex items-center px-4 py-2 text-sm">
                                     <svg class="mr-3 h-6 w-6 text-opacity-60"
                                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" clip-rule="evenodd"

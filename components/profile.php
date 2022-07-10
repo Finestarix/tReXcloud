@@ -36,7 +36,7 @@ $phone = "+" . $_SESSION["USER"]->phone;
                             <img class="h-16 w-16 bg-green-100 rounded-full sm:hidden"
                                  src="<?= $avatar ?>"
                                  alt="Avatar">
-                            <h1 class="flex ml-3 text-lg sm:text-2xl leading-7 text-white lg:text-gray-900 sm:leading-9 sm:truncate">
+                            <h1 class="flex flex-wrap ml-3 text-lg sm:text-2xl leading-7 text-white lg:text-gray-900 sm:leading-9 sm:truncate">
                                 <span class="mr-1">
                                     <?= $welcomeMessage ?>,
                                 </span>
