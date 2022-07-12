@@ -48,8 +48,8 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $id = $_POST["id"];
     $path = $_POST["path"];
     $pathSplit = explode("/", $path);
-    $directory = $pathSplit[count($pathSplit) - 2];
-    downloadFolder($id, $path, $directory);
+    $folder = $pathSplit[count($pathSplit) - 2];
+    downloadFolder($id, $path, $folder);
 
     die("Oops. Something when wrong.");
 
@@ -64,14 +64,14 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $id = $_POST["id"];
     $type = $_POST["type"];
     $path = $_POST["path"];
-    $directory = $_POST["directory"];
-    $newDirectory = $_POST["newDirectory"];
-    if (checkFolderFileName($newDirectory)) {
-        renameFolderFile($id, $path, $directory, $newDirectory);
+    $folder = $_POST["folder"];
+    $newFolder = $_POST["newFolder"];
+    if (checkFolderFileName($newFolder)) {
+        renameFolderFile($id, $path, $folder, $newFolder);
     }
 
     if ($type == "parent") {
-        $pathURL = parse_url($_SERVER["HTTP_REFERER"], PHP_URL_PATH) . "?path=" . $path . $newDirectory . "/";
+        $pathURL = parse_url($_SERVER["HTTP_REFERER"], PHP_URL_PATH) . "?path=" . $path . $newFolder . "/";
         header("Location: " . $_SERVER["HTTP_ORIGIN"] . $pathURL);
     } else if ($type == "child") {
         header("Location: " . $_SERVER["HTTP_REFERER"]);
@@ -85,6 +85,17 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $newFile = $_POST["newFile"];
     if (checkFolderFileName($newFile)) {
         renameFolderFile($id, $path, $file, $newFile);
+    }
+
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
+    die("Oops. Something when wrong.");
+
+} else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["createFolder"]))) {
+    $id = $_POST["id"];
+    $path = $_POST["path"];
+    $newFolder = $_POST["newFolder"];
+    if (checkFolderFileName($newFolder)) {
+        createFolder($id, $path, $newFolder);
     }
 
     header("Location: " . $_SERVER["HTTP_REFERER"]);

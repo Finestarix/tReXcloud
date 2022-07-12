@@ -18,7 +18,7 @@ if (isset($_GET["path"])) {
     }
 }
 
-[$directories, $files] = getFoldersFiles($id, $path);
+[$folders, $files] = getFoldersFiles($id, $path);
 ?>
 
 <body class="select-none">
@@ -58,13 +58,13 @@ if (isset($_GET["path"])) {
                 <div>
 
                     <?php
-                    if (count($directories) > 0) {
+                    if (count($folders) > 0) {
                         ?>
                         <div class="mt-8">
                             <h2 class="text-lg leading-6 font-medium text-green-600 text-opacity-80">Folders</h2>
                             <div class="mt-2 grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                                 <?php
-                                foreach ($directories as $key => $directory) {
+                                foreach ($folders as $key => $folder) {
                                     ?>
                                     <div class="relative inline-block bg-white cursor-pointer text-md text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 shadow-md rounded-lg"
                                          x-data="{isOpenFolder<?= $key ?>: false}">
@@ -73,7 +73,7 @@ if (isset($_GET["path"])) {
                                              @mouseleave="isOpenFolder<?= $key ?> = false">
                                             <div id="<?= $key . "_folderroot" ?>">
                                                 <div class="flex items-center"
-                                                     @click="(function(){window.location.href = 'cloud.php?path=<?= $path . $directory ?>/'})()">
+                                                     @click="(function(){window.location.href = 'cloud.php?path=<?= $path . $folder ?>/'})()">
                                                     <div class="flex-shrink-0">
                                                         <svg class="h-6 w-6 opacity-70" fill="currentColor"
                                                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -82,7 +82,7 @@ if (isset($_GET["path"])) {
                                                         </svg>
                                                     </div>
                                                     <div class="ml-5 w-0 flex-1 font-medium truncate">
-                                                        <?= $directory ?>
+                                                        <?= $folder ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,7 +91,7 @@ if (isset($_GET["path"])) {
                                                  x-show="isOpenFolder<?= $key ?>">
                                                 <div class="flex-1 flex justify-center">
                                                     <button class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 w-full group flex items-center justify-center px-2 py-2 text-sm"
-                                                            onclick="onClickRenameFolder('<?= $directory ?>', '<?= $key ?>')">
+                                                            onclick="onClickRenameFolder('<?= $folder ?>', '<?= $key ?>')">
                                                         <svg class="h-6 w-6 opacity-70"
                                                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                                              fill="currentColor">
@@ -105,7 +105,7 @@ if (isset($_GET["path"])) {
                                                     <form action="controllers/fileController.php" method="POST">
                                                         <input id="id" name="id" type="hidden" value="<?= $id ?>">
                                                         <input id="path" name="path" type="hidden"
-                                                               value="<?= $path . $directory . '/' ?>">
+                                                               value="<?= $path . $folder . '/' ?>">
                                                         <button id="downloadFolder" name="downloadFolder" type="submit"
                                                                 class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 w-full group flex items-center justify-center px-2 py-2 text-sm">
                                                             <svg class="h-6 w-6 opacity-70"
@@ -130,7 +130,7 @@ if (isset($_GET["path"])) {
                                                     <form action="controllers/fileController.php" method="POST">
                                                         <input id="id" name="id" type="hidden" value="<?= $id ?>">
                                                         <input id="path" name="path" type="hidden"
-                                                               value="<?= $path . $directory . '/' ?>">
+                                                               value="<?= $path . $folder . '/' ?>">
                                                         <input id="type" name="type" type="hidden" value="child">
                                                         <button id="deleteFolder" name="deleteFolder" type="submit"
                                                                 class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-red-600 w-full group flex items-center justify-center px-2 py-2 text-sm">
@@ -262,7 +262,7 @@ if (isset($_GET["path"])) {
 </body>
 
 <script>
-    function onClickRenameFolder(directory, key) {
+    function onClickRenameFolder(folder, key) {
         const user = "<?= $id ?>";
         const path = "<?= $path ?>";
         $("#" + key + "_folderroot").html(`
@@ -274,14 +274,14 @@ if (isset($_GET["path"])) {
                               d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
                     </svg>
                 </div>
-                <input form="${key + "_folderform"}" type="text" name="newDirectory" id="${key + "_foldername"}" value="${directory}" autofocus
+                <input form="${key + "_folderform"}" type="text" name="newFolder" id="${key + "_foldername"}" value="${folder}" autofocus
                        class="focus:border-green-600 focus:ring-0 block w-full ml-5 px-1 py-0 sm:text-sm font-medium border-0 border-b-2 border-gray-300">
             </div>
         `);
         $("#" + key + "_foldermenu").html(`
             <div class="flex-1 flex justify-center">
                 <button class="mx-3 font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-red-600 w-full group flex items-center justify-center px-2 py-2 text-sm"
-                        onclick="onClickRenameFolderBack('${directory}', '${key}')">
+                        onclick="onClickRenameFolderBack('${folder}', '${key}')">
                     <svg class="h-6 w-6 opacity-70"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -294,7 +294,7 @@ if (isset($_GET["path"])) {
                     <input id="id" name="id" type="hidden" value="${user}">
                     <input id="type" name="type" type="hidden" value="child">
                     <input id="path" name="path" type="hidden" value="${path}">
-                    <input id="directory" name="directory" type="hidden" value="${directory}">
+                    <input id="folder" name="folder" type="hidden" value="${folder}">
                     <button id="renameFolder" name="renameFolder" type="submit"
                             class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 w-full group flex items-center justify-center px-2 py-2 text-sm">
                         <svg class="h-6 w-6 opacity-70"
@@ -350,12 +350,12 @@ if (isset($_GET["path"])) {
         `);
     }
 
-    function onClickRenameFolderBack(directory, key) {
+    function onClickRenameFolderBack(folder, key) {
         const user = "<?= $id ?>";
         const path = <?= $path ?>;
         $("#" + key + "_folderroot").html(`
             <div class="flex items-center"
-                 @click="(function(){window.location.href = 'cloud.php?path=${path + directory}/'})()">
+                 @click="(function(){window.location.href = 'cloud.php?path=${path + folder}/'})()">
                 <div class="flex-shrink-0">
                     <svg class="h-6 w-6 opacity-70" fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -364,14 +364,14 @@ if (isset($_GET["path"])) {
                     </svg>
                 </div>
                 <div class="ml-5 w-0 flex-1 font-medium truncate">
-                    ${directory}
+                    ${folder}
                 </div>
             </div>
         `);
         $("#" + key + "_foldermenu").html(`
             <div class="flex-1 flex justify-center">
                 <button class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 w-full group flex items-center justify-center px-2 py-2 text-sm"
-                        onclick="onClickRenameFolder('${directory}', '${key}')">
+                        onclick="onClickRenameFolder('${folder}', '${key}')">
                     <svg class="h-6 w-6 opacity-70"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -383,7 +383,7 @@ if (isset($_GET["path"])) {
             <div class="flex-1 flex justify-center">
                 <form action="controllers/fileController.php" method="POST">
                     <input id="id" name="id" type="hidden" value="${user}">
-                    <input id="path" name="path" type="hidden" value="${path + directory + '/'}">
+                    <input id="path" name="path" type="hidden" value="${path + folder + '/'}">
                     <button id="downloadFolder" name="downloadFolder" type="submit"
                             class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 w-full group flex items-center justify-center px-2 py-2 text-sm">
                         <svg class="h-6 w-6 opacity-70"
@@ -405,7 +405,7 @@ if (isset($_GET["path"])) {
             <div class="flex-1 flex justify-center">
                 <form action="controllers/fileController.php" method="POST">
                     <input id="id" name="id" type="hidden" value="${user}">
-                    <input id="path" name="path" type="hidden" value="${path + directory + '/'}">
+                    <input id="path" name="path" type="hidden" value="${path + folder + '/'}">
                     <input id="type" name="type" type="hidden" value="child">
                     <button id="deleteFolder" name="deleteFolder" type="submit"
                             class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-red-600 w-full group flex items-center justify-center px-2 py-2 text-sm">

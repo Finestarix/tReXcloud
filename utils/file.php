@@ -33,10 +33,10 @@ function writeFileData($fileName, $data): void
     fclose($file);
 }
 
-function createFolder($path, $folderName): void
+function createFolder($id, $path, $folderName): void
 {
     global $CLOUD_PATH;
-    $fullPath = $CLOUD_PATH . $path . $folderName;
+    $fullPath = $CLOUD_PATH . $id . $path . $folderName;
 
     mkdir($fullPath);
 }
@@ -107,14 +107,14 @@ function deleteFoldersFiles($id, $path): bool
     }
 }
 
-function downloadFolder($id, $path, $directory): void
+function downloadFolder($id, $path, $folder): void
 {
     global $CLOUD_PATH;
     $fullPath = $CLOUD_PATH . $id . $path;
 
     if (file_exists($fullPath)) {
         $zip = new ZipArchive();
-        $zip->open($directory . ".zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $zip->open($folder . ".zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fullPath));
         foreach ($files as $file) {
             if (!$file->isDir()) {
@@ -125,12 +125,12 @@ function downloadFolder($id, $path, $directory): void
         $zip->close();
 
         header("Cache-Control: must-revalidate");
-        header("Content-Disposition: attachment; filename=\"" . basename($directory . ".zip") . "\"");
-        header("Content-Length: " . filesize($directory . ".zip"));
+        header("Content-Disposition: attachment; filename=\"" . basename($folder . ".zip") . "\"");
+        header("Content-Length: " . filesize($folder . ".zip"));
         header("Content-Type: application/octet-stream");
         header("Expires: 0");
-        readfile($directory . ".zip");
-        unlink($directory . ".zip");
+        readfile($folder . ".zip");
+        unlink($folder . ".zip");
     }
 }
 
