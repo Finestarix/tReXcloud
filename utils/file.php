@@ -148,3 +148,12 @@ function downloadFile($id, $path): void
         readfile($fullPath);
     }
 }
+
+function renameFolderFile($id, $path, $name, $newName): void
+{
+    global $CLOUD_PATH;
+    $oldPath = $CLOUD_PATH . $id . $path . $name;
+    $newPath = $CLOUD_PATH . $id . $path . $newName;
+
+    rename($oldPath, $newPath);
+}

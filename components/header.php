@@ -14,5 +14,6 @@ session_start();
     <link rel="shortcut icon" type="image/x-icon" href="public/favicon.ico">
 
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
 </head>

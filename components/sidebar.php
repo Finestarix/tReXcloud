@@ -1,4 +1,4 @@
-<div class="fixed inset-0 flex z-40 lg:hidden"
+<div class="fixed inset-0 flex z-30 lg:hidden"
      x-show="isShowMobileNav">
 
     <div class="fixed inset-0 bg-gray-600 bg-opacity-95"

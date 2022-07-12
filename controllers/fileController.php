@@ -1,6 +1,7 @@
 <?php
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/file.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/validator.php");
 
 if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $id = $_POST["id"];
@@ -57,6 +58,36 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $path = $_POST["path"];
     downloadFile($id, $path);
 
+    die("Oops. Something when wrong.");
+
+} else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["renameFolder"]))) {
+    $id = $_POST["id"];
+    $type = $_POST["type"];
+    $path = $_POST["path"];
+    $directory = $_POST["directory"];
+    $newDirectory = $_POST["newDirectory"];
+    if (checkFolderFileName($newDirectory)) {
+        renameFolderFile($id, $path, $directory, $newDirectory);
+    }
+
+    if ($type == "parent") {
+        $pathURL = parse_url($_SERVER["HTTP_REFERER"], PHP_URL_PATH) . "?path=" . $path . $newDirectory . "/";
+        header("Location: " . $_SERVER["HTTP_ORIGIN"] . $pathURL);
+    } else if ($type == "child") {
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+    }
+    die("Oops. Something when wrong.");
+
+} else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["renameFile"]))) {
+    $id = $_POST["id"];
+    $path = $_POST["path"];
+    $file = $_POST["file"];
+    $newFile = $_POST["newFile"];
+    if (checkFolderFileName($newFile)) {
+        renameFolderFile($id, $path, $file, $newFile);
+    }
+
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");
 
 }

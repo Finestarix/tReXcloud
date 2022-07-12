@@ -34,3 +34,14 @@ function checkValidDate($month, $day, $year): bool
 {
     return !checkdate($month, $day, $year);
 }
+
+function checkFolderFileName($name): bool
+{
+    // \            - Reserved for use as a path separator and escape character
+    // /            - Reserved for use as a path separator
+    // :            - Reserved for use as a drive name delimiter
+    // * and ?      - Reserved for use as wildcard characters
+    // "            - Reserved for use to quote names containing spaces
+    // <,  > and |  - Reserved for use as command redirection operators
+    return !strpbrk($name, "\\/:*?\"<>|");
+}
