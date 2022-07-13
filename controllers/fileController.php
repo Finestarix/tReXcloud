@@ -1,5 +1,7 @@
 <?php
 
+require_once($_SERVER["DOCUMENT_ROOT"] . "/controllers/core/shareController.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/models/Share.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/file.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/validator.php");
 
@@ -98,6 +100,20 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
         createFolder($id, $path, $newFolder);
     }
 
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
+    die("Oops. Something when wrong.");
+
+} else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["shareFolder"]))) {
+    $id = $_POST["id"];
+    $path = $_POST["path"];
+    $share = getShareByUserIdPath($id, $path);
+    if (!$share) {
+        $share = new Share($id, $path);
+        insertShare($share);
+    }
+
+    session_start();
+    $_SESSION["share"] = $_SERVER["HTTP_ORIGIN"]  . parse_url($_SERVER["HTTP_REFERER"], PHP_URL_PATH) . "?id=" . $share->id;
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");
 

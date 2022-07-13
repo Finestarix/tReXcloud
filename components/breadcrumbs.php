@@ -13,10 +13,23 @@ $totalPath = count($splitPath);
                 ?>
                 <div>
                     <a href="/cloud.php" class="text-gray-600 text-opacity-50 hover:text-opacity-70">
-                        <svg class="h-6 w-6"
-                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z"/>
-                        </svg>
+                        <?php
+                        if ($id === $_SESSION["USER"]->id) {
+                            ?>
+                            <svg class="h-6 w-6"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z"/>
+                            </svg>
+                            <?php
+                        } else {
+                            ?>
+                            <svg class="h-6 w-6"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/>
+                            </svg>
+                            <?php
+                        }
+                        ?>
                     </a>
                 </div>
                 <?php
@@ -29,10 +42,23 @@ $totalPath = count($splitPath);
                                 class="flex items-center justify-center w-full rounded-md text-sm font-bold text-sm text-gray-600 text-opacity-50 hover:text-opacity-70"
                                 @click="isCloudShowOption = !isCloudShowOption"
                                 @click.away="isCloudShowOption = false">
-                            <svg class="h-6 w-6"
-                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z"/>
-                            </svg>
+                            <?php
+                            if ($id === $_SESSION["USER"]->id) {
+                                ?>
+                                <svg class="h-6 w-6"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z"/>
+                                </svg>
+                                <?php
+                            } else {
+                                ?>
+                                <svg class="h-6 w-6"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/>
+                                </svg>
+                                <?php
+                            }
+                            ?>
                             <svg class="-mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
                                  viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -111,7 +137,7 @@ $totalPath = count($splitPath);
                                 <?php
                                 for ($pathIndex = 0; $pathIndex < $totalPath - 1; $pathIndex++) {
                                     ?>
-                                    <a href="cloud.php?path=/<?= implode("/", array_slice($splitPath, 0, $pathIndex + 1)) ?>/"
+                                    <a href="cloud.php?<?= (isset($share)) ? "id=" . $_GET["id"] . "&" : "" ?>path=/<?= implode("/", array_slice($splitPath, 0, $pathIndex + 1)) ?>/"
                                        class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm font-medium">
                                         <span class="relative inline-block">
                                             <svg class="ml-2 mr-3 h-6 w-6 text-opacity-40 hover:text-opacity-60"
@@ -205,16 +231,22 @@ $totalPath = count($splitPath);
                                         Create Dummy File
                                     </button>
                                 </form>
-                                <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm"
-                                        @click="isRenameModalOpen = !isRenameModalOpen">
-                                    <svg class="mr-3 h-6 w-6 text-opacity-60"
-                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"/>
-                                        <path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z"/>
-                                    </svg>
-                                    Rename Folder
-                                </button>
+                                <?php
+                                if ($id === $_SESSION["USER"]->id) {
+                                    ?>
+                                    <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm"
+                                            @click="isRenameModalOpen = !isRenameModalOpen">
+                                        <svg class="mr-3 h-6 w-6 text-opacity-60"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"/>
+                                            <path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z"/>
+                                        </svg>
+                                        Rename Folder
+                                    </button>
+                                    <?php
+                                }
+                                ?>
                                 <form action="controllers/fileController.php" method="POST">
                                     <input id="id" name="id" type="hidden" value="<?= $id ?>">
                                     <input id="path" name="path" type="hidden" value="<?= $path ?>">
@@ -229,31 +261,44 @@ $totalPath = count($splitPath);
                                     </button>
                                 </form>
                             </div>
-                            <div class="py-1">
-                                <button class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
-                                    <svg class="mr-3 h-6 w-6 text-opacity-60"
-                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
-                                    </svg>
-                                    Share Folder
-                                </button>
-                            </div>
-                            <div class="py-1">
-                                <form action="controllers/fileController.php" method="POST">
-                                    <input id="id" name="id" type="hidden" value="<?= $id ?>">
-                                    <input id="path" name="path" type="hidden" value="<?= $path ?>">
-                                    <input id="type" name="type" type="hidden" value="parent">
-                                    <button id="deleteFolder" name="deleteFolder" type="submit"
-                                            class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 hover:text-red-600 w-full group flex items-center px-4 py-2 text-sm">
-                                        <svg class="mr-3 h-6 w-6 text-opacity-60"
-                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                  d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm4 6a1 1 0 100 2h4a1 1 0 100-2H8z"/>
-                                        </svg>
-                                        Delete Folder
-                                    </button>
-                                </form>
-                            </div>
+                            <?php
+                            if ($id === $_SESSION["USER"]->id) {
+                                ?>
+                                <div class="py-1">
+                                    <form action="controllers/fileController.php" method="POST">
+                                        <input id="id" name="id" type="hidden" value="<?= $id ?>">
+                                        <input id="path" name="path" type="hidden" value="<?= $path ?>">
+                                        <button id="shareFolder" name="shareFolder" type="submit"
+                                                class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 w-full group flex items-center px-4 py-2 text-sm">
+                                            <svg class="mr-3 h-6 w-6 text-opacity-60"
+                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                 fill="currentColor">
+                                                <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+                                            </svg>
+                                            Share Folder
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="py-1">
+                                    <form action="controllers/fileController.php" method="POST">
+                                        <input id="id" name="id" type="hidden" value="<?= $id ?>">
+                                        <input id="path" name="path" type="hidden" value="<?= $path ?>">
+                                        <input id="type" name="type" type="hidden" value="parent">
+                                        <button id="deleteFolder" name="deleteFolder" type="submit"
+                                                class="font-bold text-gray-600 text-opacity-50 hover:text-opacity-70 hover:text-red-600 w-full group flex items-center px-4 py-2 text-sm">
+                                            <svg class="mr-3 h-6 w-6 text-opacity-60"
+                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                 fill="currentColor">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                      d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm4 6a1 1 0 100 2h4a1 1 0 100-2H8z"/>
+                                            </svg>
+                                            Delete Folder
+                                        </button>
+                                    </form>
+                                </div>
+                                <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -299,9 +344,12 @@ $totalPath = count($splitPath);
                                     <form id="rename-form" action="controllers/fileController.php" method="POST">
                                         <input id="id" name="id" type="hidden" value="<?= $id ?>">
                                         <input id="type" name="type" type="hidden" value="parent">
-                                        <input id="path" name="path" type="hidden" value="<?= implode("/", array_slice($splitPathUnfiltered, 0,  count($splitPathUnfiltered) - 2)) . "/" ?>">
-                                        <input id="folder" name="folder" type="hidden" value="<?= $splitPath[$totalPath - 1] ?>">
-                                        <input type="text" name="newFolder" id="newFolder" value="<?= $splitPath[$totalPath - 1] ?>" autofocus
+                                        <input id="path" name="path" type="hidden"
+                                               value="<?= implode("/", array_slice($splitPathUnfiltered, 0, count($splitPathUnfiltered) - 2)) . "/" ?>">
+                                        <input id="folder" name="folder" type="hidden"
+                                               value="<?= $splitPath[$totalPath - 1] ?>">
+                                        <input type="text" name="newFolder" id="newFolder"
+                                               value="<?= $splitPath[$totalPath - 1] ?>" autofocus
                                                class="text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 focus:border-green-600 focus:ring-0 block w-full sm:text-sm font-medium border-2 border-gray-300 rounded-md">
                                     </form>
                                 </div>
@@ -358,7 +406,8 @@ $totalPath = count($splitPath);
                                 <div class="mt-2">
                                     <form id="create-form" action="controllers/fileController.php" method="POST">
                                         <input id="id" name="id" type="hidden" value="<?= $id ?>">
-                                        <input id="path" name="path" type="hidden" value="<?= implode("/", $splitPathUnfiltered) ?>">
+                                        <input id="path" name="path" type="hidden"
+                                               value="<?= implode("/", $splitPathUnfiltered) ?>">
                                         <input type="text" name="newFolder" id="newFolder" autofocus
                                                class="text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 focus:border-green-600 focus:ring-0 block w-full sm:text-sm font-medium border-2 border-gray-300 rounded-md">
                                     </form>

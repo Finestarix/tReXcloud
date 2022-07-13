@@ -9,8 +9,7 @@ function readFileJSON($fileName): array
     $fullPath = $FOLDER_PATH . $fileName . ".json";
 
     if (!file_exists($fullPath)) {
-        $file = fopen($fullPath, "w");
-        fclose($file);
+        return [];
     }
 
     $file = fopen($fullPath, "r");
