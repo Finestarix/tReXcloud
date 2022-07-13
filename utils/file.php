@@ -8,18 +8,17 @@ function readFileJSON($fileName): array
     global $FOLDER_PATH;
     $fullPath = $FOLDER_PATH . $fileName . ".json";
 
-    if (!file_exists($fullPath)) {
-        return [];
-    }
+    if (file_exists($fullPath)) {
+        if (filesize($fullPath) == 0) {
+            return [];
+        }
 
-    $file = fopen($fullPath, "r");
-    $data = null;
-    if (filesize($fullPath) > 0) {
+        $file = fopen($fullPath, "r");
         $data = fread($file, filesize($fullPath));
+        fclose($file);
+        return json_decode($data);
     }
-    fclose($file);
-
-    return json_decode($data);
+    return [];
 }
 
 function writeFileData($fileName, $data): void
