@@ -38,8 +38,8 @@ if (isset($_SESSION["USER"])) {
                                 <input id="username" name="username" type="text"
                                        class="appearance-none px-3 py-2 w-full border border-gray-300 rounded-l-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
                                 <span class="inline-flex items-center px-3 rounded-r-md border border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-                                @trexcloud.com
-                            </span>
+                                    @trexcloud.com
+                                </span>
                             </div>
                         </div>
 

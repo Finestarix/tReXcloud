@@ -39,6 +39,14 @@ function createFolder($id, $path, $folderName): void
     mkdir($fullPath);
 }
 
+function checkFoldersFiles($id, $path): bool
+{
+    global $CLOUD_PATH;
+    $fullPath = $CLOUD_PATH . $id . $path;
+
+    return file_exists($fullPath);
+}
+
 function generateDummyFolders($id, $path, $total): void
 {
     global $CLOUD_PATH;
@@ -154,4 +162,21 @@ function renameFolderFile($id, $path, $name, $newName): void
     $newPath = $CLOUD_PATH . $id . $path . $newName;
 
     rename($oldPath, $newPath);
+}
+
+function uploadFiles($id, $path, $files): void {
+    global $CLOUD_PATH;
+    $fullPath = $CLOUD_PATH . $id . $path;
+
+    $totalFile = count($files["name"]);
+    for ($i = 0; $i < $totalFile; $i++) {
+        $fileName = $files["name"][$i];
+        $fileTempPath = $files["tmp_name"][$i];
+        $fileSize = $files["size"][$i];
+
+        if (checkFileExtension($fileName) && checkFileSize($fileSize)) {
+            $targetPath = $fullPath . $fileName;
+            move_uploaded_file($fileTempPath, $targetPath);
+        }
+    }
 }

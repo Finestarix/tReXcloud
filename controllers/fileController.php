@@ -85,7 +85,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $path = $_POST["path"];
     $file = $_POST["file"];
     $newFile = $_POST["newFile"];
-    if (checkFolderFileName($newFile)) {
+    if (checkFolderFileName($newFile) && checkFileExtension($newFile)) {
         renameFolderFile($id, $path, $file, $newFile);
     }
 
@@ -114,6 +114,15 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
 
     session_start();
     $_SESSION["share"] = $_SERVER["HTTP_ORIGIN"]  . parse_url($_SERVER["HTTP_REFERER"], PHP_URL_PATH) . "?id=" . $share->id;
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
+    die("Oops. Something when wrong.");
+
+} else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["uploadFiles"]))) {
+    $id = $_POST["id"];
+    $path = $_POST["path"];
+    $files = $_FILES["files"];
+    uploadFiles($id, $path, $files);
+
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");
 

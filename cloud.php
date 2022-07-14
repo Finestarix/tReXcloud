@@ -19,6 +19,11 @@ if (isset($_GET["id"])) {
         header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/cloud.php");
         die("Oops. Something when wrong.");
     }
+    if (!checkFoldersFiles($share->userId, $share->path)) {
+        header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/error.php");
+        die("Oops. Something when wrong.");
+    }
+
     $id = $share->userId;
     if (!isset($_GET["path"])) {
         $path = $share->path;
@@ -32,6 +37,12 @@ if (isset($_GET["path"])) {
     $path .= $pathParameter;
     if (!str_ends_with($path, "/")) {
         $path .= "/";
+    }
+    if (isset($share)) {
+        if (!str_starts_with($path, $share->path)) {
+            header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/error.php");
+            die("Oops. Something when wrong.");
+        }
     }
 }
 
@@ -49,9 +60,38 @@ if (isset($_SESSION["share"])) {
     require_once("components/sidebar.php");
     ?>
 
-    <div class="flex-1 overflow-auto focus:outline-none">
-        <main class="h-full flex-1 relative pb-8 z-0 overflow-y-auto">
-            <div class="bg-green-600 lg:bg-white relative z-10 flex-shrink-0 flex h-30 border-b border-gray-200 lg:border-none">
+    <div class="relative flex-1 h-screen overflow-auto focus:outline-none"
+         ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+        <div class="z-50 absolute bottom-0 left-0 right-0 mx-auto bg-green-100 border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md">
+            <div class="flex">
+                <div class="py-1">
+                    <svg class="fill-current h-6 w-6 text-green-600 mr-4"
+                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
+                    </svg>
+                </div>
+                <form action="controllers/fileController.php" method="POST" enctype="multipart/form-data">
+                    <div class="flex flex-row">
+                        <p class="font-bold mr-1">Upload File</p>
+                        <p id="uploadTotalContainer" class="hidden">(<span id="uploadTotal"></span> files)</p>
+                    </div>
+                    <p class="font-sm">Drag and drop your files here to upload, or
+                        <button type="button" class="underline" onclick="onClickFile()">click here</button>
+                        to browse files from your computer
+                    </p>
+                    <input id="id" name="id" type="hidden" value="<?= $id ?>">
+                    <input id="path" name="path" type="hidden" value="<?= $path ?>">
+                    <input id="uploadFile" name="files[]" class="hidden" type="file" multiple/>
+                    <button id="uploadFiles" name="uploadFiles" type="submit"
+                            class="bg-green-600 font-medium text-white hover:text-green-200 mt-2 px-3 py-1 rounded-md shadow-lg">
+                        Upload
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <main class="flex-1 relative z-0 h-screen overflow-y-auto">
+            <div class="bg-green-600 lg:bg-white relative z-10 flex-shrink-0 flex h-24 border-b border-gray-200 lg:border-none">
                 <button class="flex lg:hidden items-center px-4 border-r border-gray-200 text-white lg:hidden"
                         @click="isShowMobileNav = true">
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -66,7 +106,8 @@ if (isset($_SESSION["share"])) {
                 ?>
             </div>
 
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="uploadContainer"
+                 class="pb-52 sm:pb-44 max-w-6xl min-h-[calc(100vh_-_96px)] border border-4 border-gray-50 mx-auto px-4 sm:px-6 lg:px-8">
                 <?php
                 require_once("components/breadcrumbs.php");
                 ?>
@@ -316,7 +357,7 @@ if (isset($shareURL)) {
              x-transition:leave-end="opacity-0"></div>
         <div class="fixed inset-0 overflow-y-auto z-40">
             <div class="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
-                <div class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full z-[200]"
+                <div class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg w-full z-[200]"
                      x-transition:enter="ease-out duration-300"
                      x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                      x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
@@ -372,6 +413,34 @@ if (isset($shareURL)) {
     <?php
     }
     ?>
+
+    function onClickFile() {
+        $("#uploadFile").click();
+    }
+
+    $("#uploadFile").on("change", function (e) {
+        $("#uploadTotalContainer").removeClass("hidden");
+        $("#uploadTotal").text(e.target.files.length);
+        e.preventDefault();
+    });
+
+    function onDrop(e) {
+        document.getElementById('uploadFile').files = e.dataTransfer.files;
+        $("#uploadTotalContainer").removeClass("hidden");
+        $("#uploadTotal").text(e.dataTransfer.files.length);
+        onDragLeave(e);
+        e.preventDefault();
+    }
+
+    function onDragOver(e) {
+        $("#uploadContainer").addClass("border-green-600 border-dashed").removeClass("border-gray-50");
+        e.preventDefault();
+    }
+
+    function onDragLeave(e) {
+        $("#uploadContainer").removeClass("border-green-600 border-dashed").addClass("border-gray-50");
+        e.preventDefault();
+    }
 
     <?php
     if ($id === $_SESSION["USER"]->id) {

@@ -45,3 +45,16 @@ function checkFolderFileName($name): bool
     // <,  > and |  - Reserved for use as command redirection operators
     return !strpbrk($name, "\\/:*?\"<>|");
 }
+
+function checkFileExtension($name): bool
+{
+    $allowedExtension = ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "gif", "jpg", "png", "pdf", "txt", "zip"];
+    $fileExtension = pathinfo($name, PATHINFO_EXTENSION);
+
+    return in_array($fileExtension, $allowedExtension);
+}
+
+function checkFileSize($size, $maxSize = 10485760): bool
+{
+    return $size < $maxSize;
+}

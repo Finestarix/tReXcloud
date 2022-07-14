@@ -2,7 +2,7 @@
 if ($_SESSION["USER"]->gender == "male") {
     $avatar = "https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Happy&eyebrowType=UpDownNatural&mouthType=Twinkle&skinColor=Light";
 } else {
-    $avatar = "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight2&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Happy&eyebrowType=UpDownNatural&mouthType=Twinkle&skinColor=Light";
+    $avatar = "https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight2&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Happy&eyebrowType=UpDownNatural&mouthType=Twinkle&skinColor=Light";
 }
 
 date_default_timezone_set("Asia/Jakarta");
