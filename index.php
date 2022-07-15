@@ -109,7 +109,7 @@ require_once("components/header.php");
 
     </nav>
 
-    <div id="product" class="py-14 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl bg-green-50 text-center">
+    <div id="product" class="mt-5 py-14 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl bg-green-50 text-center">
         <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
             <span class="block xl:inline">
                 Store, access, and share
@@ -423,7 +423,7 @@ require_once("components/header.php");
         </div>
     </div>
 
-    <div class="py-14 px-4 sm:px-6 lg:py-16 lg:px-8 mx-auto max-w-7xl bg-green-50 text-center">
+    <div class="mb-5 py-14 px-4 sm:px-6 lg:py-16 lg:px-8 mx-auto max-w-7xl bg-green-50 text-center">
         <p class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             <span class="block">
                 Start today - It's easy.

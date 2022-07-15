@@ -385,7 +385,7 @@ if (isset($shareURL)) {
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button class="w-full inline-flex justify-center rounded-md border border-green-100 shadow-sm px-4 py-2 bg-green-600 bg-opacity-80 text-base font-medium text-white hover:bg-opacity-100 sm:ml-3 sm:w-auto sm:text-sm"
-                                onclick="onShareCopyClipboard()">
+                                onclick="onShareCopyClipboard(event)">
                             Copy
                         </button>
                         <button type="button"
@@ -407,8 +407,9 @@ if (isset($shareURL)) {
     <?php
     if (isset($shareURL)) {
     ?>
-    function onShareCopyClipboard() {
-        navigator.clipboard.writeText("<?= $shareURL ?>");
+    function onShareCopyClipboard(e) {
+        navigator.clipboard.writeText($("#shareLink").val());
+        e.preventDefault();
     }
     <?php
     }
@@ -640,14 +641,6 @@ if (isset($shareURL)) {
                         </svg>
                     </button>
                 </form>
-            </div>
-            <div class="flex-1 flex justify-center">
-                <button class="font-bold text-gray-600 text-opacity-80 hover:text-opacity-90 hover:text-green-600 w-full group flex items-center justify-center px-2 py-2 text-sm">
-                    <svg class="h-6 w-6 opacity-70"
-                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
-                    </svg>
-                </button>
             </div>
             <div class="flex-1 flex justify-center">
                 <form action="controllers/fileController.php" method="POST">
