@@ -3,7 +3,7 @@ $title = "Home Page";
 require_once("components/header.php");
 ?>
 
-<div class="relative overflow-hidden">
+<div class="relative overflow-hidden select-none">
 
     <nav class="relative pt-6 pb-6 bg-white shadow-lg"
          x-data="{isShowMobileNav: false}">

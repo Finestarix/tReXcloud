@@ -50,7 +50,16 @@ if (isset($_SESSION["share"])) {
     $shareURL = $_SESSION["share"];
     unset($_SESSION["share"]);
 }
-[$folders, $files] = getFoldersFiles($id, $path);
+
+$result = getFoldersFiles($id, $path);
+if (!$result) {
+    $_SESSION["MESSAGE"] = "Failed to get list of folders and files.";
+    $_SESSION["MESSAGE_TYPE"] = "error";
+    $folders = [];
+    $files = [];
+} else {
+    [$folders, $files] = $result;
+}
 ?>
 
 <body class="select-none">
@@ -75,9 +84,9 @@ if (isset($_SESSION["share"])) {
                         <p class="font-bold mr-1">Upload File</p>
                         <p id="uploadTotalContainer" class="hidden">(<span id="uploadTotal"></span> files)</p>
                     </div>
-                    <p class="font-sm">Drag and drop your files here to upload, or
-                        <button type="button" class="underline" onclick="onClickFile()">click here</button>
-                        to browse files from your computer
+                    <p class="font-sm flex flex-row">
+                        <span class="hidden sm:flex"><span class="font-medium">Drag and drop</span>&nbsp;your files here, or&nbsp;</span>
+                        <span><button type="button" class="underline" onclick="onClickFile()"><span class="font-medium">Click here</span></button>&nbsp;to browse files</span>
                     </p>
                     <input id="id" name="id" type="hidden" value="<?= $id ?>">
                     <input id="path" name="path" type="hidden" value="<?= $path ?>">
@@ -105,6 +114,10 @@ if (isset($_SESSION["share"])) {
                 require_once("components/profile.php");
                 ?>
             </div>
+
+            <?php
+            require_once("components/snackbar.php");
+            ?>
 
             <div id="uploadContainer"
                  class="pb-52 sm:pb-44 max-w-6xl min-h-[calc(100vh_-_96px)] border border-4 border-gray-50 mx-auto px-4 sm:px-6 lg:px-8">

@@ -5,19 +5,35 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/models/Share.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/file.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/utils/validator.php");
 
+session_start();
+
 if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $id = $_POST["id"];
     $path = $_POST["path"];
-    generateDummyFolders($id, $path, 10);
+    $result = generateDummyFolders($id, $path, 10);
 
+    if ($result) {
+        $_SESSION["MESSAGE"] = "Dummy folders has been successfully created.";
+        $_SESSION["MESSAGE_TYPE"] = "success";
+    } else {
+        $_SESSION["MESSAGE"] = "Failed to create a folder.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    }
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");
 
 } else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFile"]))) {
     $id = $_POST["id"];
     $path = $_POST["path"];
-    generateDummyFiles($id, $path, 10);
+    $result = generateDummyFiles($id, $path, 10);
 
+    if ($result) {
+        $_SESSION["MESSAGE"] = "Dummy files has been successfully created.";
+        $_SESSION["MESSAGE_TYPE"] = "success";
+    } else {
+        $_SESSION["MESSAGE"] = "Failed to create a files.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    }
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");
 
@@ -25,8 +41,12 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $id = $_POST["id"];
     $path = $_POST["path"];
     $type = $_POST["type"];
-    deleteFoldersFiles($id, $path);
+    $result = deleteFoldersFiles($id, $path);
 
+    if ($result) {
+        $_SESSION["MESSAGE"] = "Folder has been successfully deleted.";
+        $_SESSION["MESSAGE_TYPE"] = "success";
+    }
     if ($type == "parent") {
         $pathSplit = explode("/", $path);
         $pathSplit = array_slice($pathSplit, 0, count($pathSplit) - 2);
@@ -41,8 +61,12 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
 } else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["deleteFile"]))) {
     $id = $_POST["id"];
     $path = $_POST["path"];
-    deleteFoldersFiles($id, $path);
+    $result = deleteFoldersFiles($id, $path);
 
+    if ($result) {
+        $_SESSION["MESSAGE"] = "File has been successfully deleted.";
+        $_SESSION["MESSAGE_TYPE"] = "success";
+    }
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");
 
@@ -51,15 +75,29 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $path = $_POST["path"];
     $pathSplit = explode("/", $path);
     $folder = $pathSplit[count($pathSplit) - 2];
-    downloadFolder($id, $path, $folder);
+    $result = downloadFolder($id, $path, $folder);
 
+    if ($result) {
+        $_SESSION["MESSAGE"] = "Folder has been successfully downloaded.";
+        $_SESSION["MESSAGE_TYPE"] = "success";
+    } else {
+        $_SESSION["MESSAGE"] = "Failed to download folder.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    }
     die("Oops. Something when wrong.");
 
 } else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["downloadFile"]))) {
     $id = $_POST["id"];
     $path = $_POST["path"];
-    downloadFile($id, $path);
+    $result = downloadFile($id, $path);
 
+    if ($result) {
+        $_SESSION["MESSAGE"] = "File has been successfully downloaded.";
+        $_SESSION["MESSAGE_TYPE"] = "success";
+    } else {
+        $_SESSION["MESSAGE"] = "Failed to download file.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    }
     die("Oops. Something when wrong.");
 
 } else if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["renameFolder"]))) {
@@ -68,8 +106,21 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $path = $_POST["path"];
     $folder = $_POST["folder"];
     $newFolder = $_POST["newFolder"];
-    if (checkFolderFileName($newFolder)) {
-        renameFolderFile($id, $path, $folder, $newFolder);
+    if (!checkFolderFileName($newFolder)) {
+        $_SESSION["MESSAGE"] = "Folder name must not contains reserved character.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    } else {
+        $result = renameFolderFile($id, $path, $folder, $newFolder);
+        if ($result == 1) {
+            $_SESSION["MESSAGE"] = "The folder name is already taken.";
+            $_SESSION["MESSAGE_TYPE"] = "error";
+        } else if ($result == 2) {
+            $_SESSION["MESSAGE"] = "Failed to rename a folder.";
+            $_SESSION["MESSAGE_TYPE"] = "error";
+        } else if ($result) {
+            $_SESSION["MESSAGE"] = "Folder has been successfully renamed.";
+            $_SESSION["MESSAGE_TYPE"] = "success";
+        }
     }
 
     if ($type == "parent") {
@@ -85,8 +136,24 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $path = $_POST["path"];
     $file = $_POST["file"];
     $newFile = $_POST["newFile"];
-    if (checkFolderFileName($newFile) && checkFileExtension($newFile)) {
-        renameFolderFile($id, $path, $file, $newFile);
+    if (!checkFolderFileName($newFile)) {
+        $_SESSION["MESSAGE"] = "File name must not contains reserved character.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    } else if (!checkFileExtension($newFile)) {
+        $_SESSION["MESSAGE"] = "File extension must be between doc, docx, xls, xlsx, ppt, pptx, gif, jpg, png, pdf, txt, and zip.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    } else {
+        $result = renameFolderFile($id, $path, $file, $newFile, false);
+        if ($result == 1) {
+            $_SESSION["MESSAGE"] = "The file name is already taken.";
+            $_SESSION["MESSAGE_TYPE"] = "error";
+        } else if ($result == 2) {
+            $_SESSION["MESSAGE"] = "Failed to rename a file.";
+            $_SESSION["MESSAGE_TYPE"] = "error";
+        } else if ($result) {
+            $_SESSION["MESSAGE"] = "File has been successfully renamed.";
+            $_SESSION["MESSAGE_TYPE"] = "success";
+        }
     }
 
     header("Location: " . $_SERVER["HTTP_REFERER"]);
@@ -96,8 +163,18 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $id = $_POST["id"];
     $path = $_POST["path"];
     $newFolder = $_POST["newFolder"];
-    if (checkFolderFileName($newFolder)) {
-        createFolder($id, $path, $newFolder);
+    if (!checkFolderFileName($newFolder)) {
+        $_SESSION["MESSAGE"] = "Folder name must not contains reserved character.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    } else {
+        $result = createFolder($id, $path, $newFolder);
+        if ($result) {
+            $_SESSION["MESSAGE"] = "Folder has been successfully created.";
+            $_SESSION["MESSAGE_TYPE"] = "success";
+        } else {
+            $_SESSION["MESSAGE"] = "Failed to create a folder.";
+            $_SESSION["MESSAGE_TYPE"] = "error";
+        }
     }
 
     header("Location: " . $_SERVER["HTTP_REFERER"]);
@@ -112,7 +189,6 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
         insertShare($share);
     }
 
-    session_start();
     $_SESSION["share"] = $_SERVER["HTTP_ORIGIN"]  . parse_url($_SERVER["HTTP_REFERER"], PHP_URL_PATH) . "?id=" . $share->id;
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");
@@ -121,7 +197,14 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $id = $_POST["id"];
     $path = $_POST["path"];
     $files = $_FILES["files"];
-    uploadFiles($id, $path, $files);
+    $result = uploadFiles($id, $path, $files);
+    if ($result) {
+        $_SESSION["MESSAGE"] = "Files has been successfully uploaded.";
+        $_SESSION["MESSAGE_TYPE"] = "success";
+    } else {
+        $_SESSION["MESSAGE"] = "Failed to upload file.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+    }
 
     header("Location: " . $_SERVER["HTTP_REFERER"]);
     die("Oops. Something when wrong.");

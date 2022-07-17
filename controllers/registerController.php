@@ -65,7 +65,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["register"]))) {
     } else {
         $user = new User($firstName, $lastName, $username, $password, $phoneNumber, $birthdateDay, $birthdateMonth, $birthdateYear, $gender);
         insertUser($user);
-        createFolder($user->id, "","", );
+        createFolder($user->id, "","");
         header("Location: " . $_SERVER["HTTP_ORIGIN"] . "/login.php");
         die("Oops. Something when wrong.");
     }
