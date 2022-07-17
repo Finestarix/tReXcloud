@@ -184,13 +184,13 @@ function downloadFile($id, $path): bool
     }
 }
 
-function renameFolderFile($id, $path, $name, $newName, $isFolder=true): int|bool
+function renameFolderFile($id, $path, $name, $newName): int
 {
     global $CLOUD_PATH;
     $oldPath = $CLOUD_PATH . $id . $path . $name;
     $newPath = $CLOUD_PATH . $id . $path . $newName;
 
-    if (!$isFolder && file_exists($newPath)) {
+    if (file_exists($newPath)) {
         return 1;
     }
 
@@ -198,7 +198,7 @@ function renameFolderFile($id, $path, $name, $newName, $isFolder=true): int|bool
     if (!$result) {
         return 2;
     }
-    return true;
+    return 3;
 }
 
 function uploadFiles($id, $path, $files): bool {

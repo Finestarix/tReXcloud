@@ -117,7 +117,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
         } else if ($result == 2) {
             $_SESSION["MESSAGE"] = "Failed to rename a folder.";
             $_SESSION["MESSAGE_TYPE"] = "error";
-        } else if ($result) {
+        } else if ($result == 3) {
             $_SESSION["MESSAGE"] = "Folder has been successfully renamed.";
             $_SESSION["MESSAGE_TYPE"] = "success";
         }
@@ -143,14 +143,14 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
         $_SESSION["MESSAGE"] = "File extension must be between doc, docx, xls, xlsx, ppt, pptx, gif, jpg, png, pdf, txt, and zip.";
         $_SESSION["MESSAGE_TYPE"] = "error";
     } else {
-        $result = renameFolderFile($id, $path, $file, $newFile, false);
+        $result = renameFolderFile($id, $path, $file, $newFile);
         if ($result == 1) {
             $_SESSION["MESSAGE"] = "The file name is already taken.";
             $_SESSION["MESSAGE_TYPE"] = "error";
         } else if ($result == 2) {
             $_SESSION["MESSAGE"] = "Failed to rename a file.";
             $_SESSION["MESSAGE_TYPE"] = "error";
-        } else if ($result) {
+        } else if ($result == 3) {
             $_SESSION["MESSAGE"] = "File has been successfully renamed.";
             $_SESSION["MESSAGE_TYPE"] = "success";
         }
