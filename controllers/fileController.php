@@ -77,12 +77,17 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $folder = $pathSplit[count($pathSplit) - 2];
     $result = downloadFolder($id, $path, $folder);
 
-    if ($result) {
+    if ($result == 1) {
+        $_SESSION["MESSAGE"] = "Folder is empty.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+    } else if ($result == 2) {
         $_SESSION["MESSAGE"] = "Folder has been successfully downloaded.";
         $_SESSION["MESSAGE_TYPE"] = "success";
-    } else {
+    } else if($result == 3) {
         $_SESSION["MESSAGE"] = "Failed to download folder.";
         $_SESSION["MESSAGE_TYPE"] = "error";
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
     die("Oops. Something when wrong.");
 
@@ -91,12 +96,17 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["dummyFolder"]))) {
     $path = $_POST["path"];
     $result = downloadFile($id, $path);
 
-    if ($result) {
+    if ($result == 1) {
+        $_SESSION["MESSAGE"] = "File is empty.";
+        $_SESSION["MESSAGE_TYPE"] = "error";
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+    } else if ($result == 2) {
         $_SESSION["MESSAGE"] = "File has been successfully downloaded.";
         $_SESSION["MESSAGE_TYPE"] = "success";
-    } else {
+    } else if ($result == 3) {
         $_SESSION["MESSAGE"] = "Failed to download file.";
         $_SESSION["MESSAGE_TYPE"] = "error";
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
     }
     die("Oops. Something when wrong.");
 

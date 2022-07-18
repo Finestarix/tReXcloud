@@ -131,10 +131,15 @@ function deleteFoldersFiles($id, $path): bool
     }
 }
 
-function downloadFolder($id, $path, $folder): bool
+function downloadFolder($id, $path, $folder): int
 {
     global $CLOUD_PATH;
     $fullPath = $CLOUD_PATH . $id . $path;
+
+    [$folders, $files] = getFoldersFiles($id, $path);
+    if (count($folders) == 0 && count($files) == 0) {
+        return 1;
+    }
 
     if (file_exists($fullPath)) {
         $zip = new ZipArchive();
@@ -156,20 +161,22 @@ function downloadFolder($id, $path, $folder): bool
         header("Content-Transfer-Encoding: binary");
         header("Content-Type: application/octet-stream");
         header("Expires: 0");
-        $result = readfile($CLOUD_PATH . $folder . ".zip");
+        readfile($CLOUD_PATH . $folder . ".zip");
         unlink($CLOUD_PATH . $folder . ".zip");
-        return $result;
+        return 2;
     } else {
-        return false;
+        return 3;
     }
 }
 
-function downloadFile($id, $path): bool
+function downloadFile($id, $path): int
 {
     global $CLOUD_PATH;
     $fullPath = $CLOUD_PATH . $id . $path;
 
-    if (file_exists($fullPath)) {
+    if (filesize($fullPath) == 0) {
+        return 1;
+    } else if (file_exists($fullPath)) {
         header("Pragma: public");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header("Cache-Control: private",false);
@@ -178,9 +185,10 @@ function downloadFile($id, $path): bool
         header("Content-Transfer-Encoding: binary");
         header("Content-Type: application/octet-stream");
         header("Expires: 0");
-        return readfile($fullPath);
+        readfile($fullPath);
+        return 2;
     } else {
-        return false;
+        return 3;
     }
 }
 
